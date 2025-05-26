@@ -8,9 +8,8 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const messagesEndRef = useRef(null); // Referencia para el final del contenedor de mensajes
+  const messagesEndRef = useRef(null);
 
-  // Configuración de Gemini
   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -26,7 +25,6 @@ function App() {
   const handleSendMessage = async () => {
     if (!userInput.trim() || loading) return;
 
-    // Mensaje del usuario
     const newUserMessage = { sender: 'user', text: userInput };
     setMessages(prev => [...prev, newUserMessage]);
     setUserInput('');
@@ -57,83 +55,86 @@ function App() {
     }
   };
 
-  // Desplazar hacia abajo cuando se agreguen nuevos mensajes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
-    <div className="app-container">
-      <header className="header-container">
-        {selectedOption && (
-          <button 
-            className="back-to-menu-btn"
-            onClick={() => {
-              setSelectedOption(null);
-              setMessages([]);
-            }}
-            aria-label="Volver al menú"
-          >
-            <FaArrowLeft /> Volver
-          </button>
-        )}
-        <h1 className="app-title">MindGuide</h1>
-      </header>
-      
-      {!selectedOption ? (
-        <main className="options-container">
-          <h2>¿En qué necesitas ayuda hoy?</h2>
-          <div className="options-grid">
-            {options.map((option, index) => (
-              <button
-                key={index}
-                className="option-card"
-                onClick={() => setSelectedOption(option)}
-              >
-                <div className="option-icon">{option.icon}</div>
-                <span className="option-label">{option.label}</span>
-              </button>
-            ))}
-          </div>
-        </main>
-      ) : (
-        <main className="chat-container">
-          <div className="chat-header">
-            <h2>{selectedOption.label}</h2>
-          </div>
-
-          <div className="messages-container">
-            {messages.map((msg, index) => (
-              <div key={index} className={`message ${msg.sender}`}>
-                {msg.text}
-              </div>
-            ))}
-            {loading && <div className="message bot">Pensando...</div>}
-            <div ref={messagesEndRef} /> {/* Referencia para el final del contenedor de mensajes */}
-          </div>
-
-          <div className="input-container">
-            <input
-              type="text"
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              placeholder="Escribe tu mensaje..."
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              disabled={loading}
-            />
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-4">
+      <div className="flex flex-col w-full max-w-5xl h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden">
+        <header className="flex items-center justify-between bg-purple-700 p-4 text-white">
+          {selectedOption && (
             <button 
-              onClick={handleSendMessage}
-              disabled={loading}
-              className="send-button"
-              aria-label="Enviar mensaje"
+              className="flex items-center gap-2 bg-purple-600 p-2 rounded-md transition duration-300 hover:bg-purple-500"
+              onClick={() => {
+                setSelectedOption(null);
+                setMessages([]);
+              }}
+              aria-label="Volver al menú"
             >
-              {loading ? '...' : 'Enviar'}
+              <FaArrowLeft /> Volver
             </button>
-          </div>
-        </main>
-      )}
+          )}
+          <h1 className="text-2xl font-bold text-center flex-grow">{!selectedOption ? "Emocional" : ""}</h1>
+        </header>
+        
+        {!selectedOption ? (
+          <main className="flex flex-col items-center justify-center p-12 h-full">
+            <h2 className="text-gray-800 mb-8 font-semibold text-3xl text-center">¿En qué necesitas ayuda hoy?</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-4xl">
+              {options.map((option, index) => (
+                <button
+                  key={index}
+                  className="bg-white border border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out shadow-md hover:shadow-xl hover:bg-purple-50"
+                  onClick={() => setSelectedOption(option)}
+                >
+                  <div className="text-6xl text-purple-600 mb-4">{option.icon}</div>
+                  <span className="text-xl text-gray-800 font-semibold text-center">{option.label}</span>
+                </button>
+              ))}
+            </div>
+          </main>
+        ) : (
+          <main className="flex flex-col h-full relative overflow-hidden">
+            <div className="p-6 bg-purple-700 text-white text-center flex-shrink-0">
+              <h2 className="text-2xl font-semibold">{selectedOption.label}</h2>
+            </div>
+
+            <div className="flex-grow overflow-y-auto p-8 bg-gray-100 flex flex-col gap-6">
+              {messages.map((msg, index) => (
+                <div key={index} className={`p-6 rounded-lg max-w-[80%] relative shadow-lg animate-fadeIn ${msg.sender === 'user' ? 'bg-purple-600 text-white self-end rounded-br-2xl' : 'bg-white text-gray-900 self-start border border-gray-300 rounded-bl-2xl'}`}>
+                  {msg.text}
+                </div>
+              ))}
+              {loading && <div className="p-6 bg-white text-gray-800 self-start rounded-lg shadow">Pensando...</div>}
+              <div ref={messagesEndRef} />
+            </div>
+
+            <div className="flex gap-6 p-6 bg-white border-t border-gray-300 flex-shrink-0">
+              <input
+                type="text"
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                placeholder="Escribe tu mensaje..."
+                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                disabled={loading}
+                className="flex-grow p-4 border border-gray-300 rounded-2xl text-lg transition duration-300 ease-in-out focus:outline-none focus:border-purple-600 focus:ring focus:ring-purple-200"
+              />
+              <button 
+                onClick={handleSendMessage}
+                disabled={loading}
+                className={`px-6 py-4 bg-purple-600 text-white rounded-2xl font-semibold transition duration-300 ease-in-out ${loading ? 'bg-purple-400 cursor-not-allowed' : 'hover:bg-purple-700'}`}
+                aria-label="Enviar mensaje"
+              >
+                {loading ? '...' : 'Enviar'}
+              </button>
+            </div>
+          </main>
+        )}
+      </div>
     </div>
   );
 }
 
 export default App;
+
