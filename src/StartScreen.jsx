@@ -14,24 +14,38 @@ export default function StartScreen({ onStart }) {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 p-6">
-      <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg border border-gray-300 overflow-hidden">
-        <div className="p-16">
-          {/* Logo estilo Google */}
-          <div className="flex justify-center mb-10">
-            <div className="bg-purple-600 text-white rounded-full w-20 h-20 flex items-center justify-center text-4xl font-bold">E</div>
+      <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg border border-gray-300 overflow-hidden flex">
+        {/* Panel izquierdo con imagen fija mejorada para mostrar la imagen completa */}
+<div className="w-1/2 bg-purple-100 p-8 flex items-center justify-center">
+  <div className="w-full h-full rounded-lg shadow-lg flex items-center justify-center overflow-hidden">
+    {/* Imagen centrada y completa sin recorte */}
+    <img
+      src="./wellness.jpg"
+      alt="hola"
+      className="object-contain max-w-full max-h-full rounded-lg"
+    />
+  </div>
+</div>
+
+
+
+
+        {/* Panel derecho para el formulario */}
+        <div className="w-2/3 p-12">
+          <div className="flex justify-center mb-8">
+            <div className="bg-purple-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-bold">E</div>
           </div>
 
-          <h1 className="text-3xl font-semibold text-center text-gray-800 mb-10">Bienvenido a EmocionApp</h1>
+          <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">Bienvenido a EmocionApp</h1>
           
-          {/* Formulario estilo Google */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             <div>
               <label className="block text-base font-medium text-gray-700 mb-2">Nombre</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-transparent transition text-lg"
+                className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-transparent transition text-lg"
                 placeholder="Tu nombre completo"
               />
             </div>
@@ -43,22 +57,20 @@ export default function StartScreen({ onStart }) {
                 min="0"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
-                className="w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-transparent transition text-lg"
+                className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-purple-500 focus:border-transparent transition text-lg"
                 placeholder="Tu edad"
               />
             </div>
             
             <button
               onClick={handleStart}
-              className="w-full py-4 px-6 bg-purple-700 hover:bg-purple-800 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-purple-600"
+              className="w-full py-3 px-6 bg-purple-700 hover:bg-purple-800 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-purple-600 mt-4"
             >
               Continuar
             </button>
           </div>
-          
         </div>
       </div>
     </div>
   );
 }
-
