@@ -16,27 +16,27 @@ export default function StartScreen({ onStart }) {
     <div className="flex items-center justify-center min-h-screen bg-gray-50 p-6">
       <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg border border-gray-300 overflow-hidden flex">
         {/* Panel izquierdo con imagen fija mejorada para mostrar la imagen completa */}
-<div className="w-1/2 bg-purple-100 p-8 flex items-center justify-center">
-  <div className="w-full h-full rounded-lg shadow-lg flex items-center justify-center overflow-hidden">
-    {/* Imagen centrada y completa sin recorte */}
-    <img
-      src="./wellness.jpg"
-      alt="hola"
-      className="object-contain max-w-full max-h-full rounded-lg"
-    />
-  </div>
-</div>
-
-
-
+        <div className="w-1/2 bg-purple-100 p-8 flex items-center justify-center">
+          <div className="w-full h-full rounded-lg shadow-lg flex items-center justify-center overflow-hidden">
+            {/* Imagen centrada y completa sin recorte */}
+            <img
+              src="./wellness.jpg"
+              alt="hola"
+              className="object-contain max-w-full max-h-full rounded-lg"
+            />
+          </div>
+        </div>
 
         {/* Panel derecho para el formulario */}
         <div className="w-2/3 p-12">
           <div className="flex justify-center mb-8">
-            <div className="bg-purple-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-bold">E</div>
+            <div className="bg-purple-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl font-bold">G</div>
           </div>
 
-          <h1 className="text-3xl font-semibold text-center text-gray-800 mb-8">Bienvenido a EmocionApp</h1>
+          <h1 className="text-3xl font-semibold text-center text-gray-800 mb-2">Bienvenido a GlowUp</h1>
+          
+          {/* Eslogan en cursiva */}
+          <p className="text-center text-gray-600 italic mb-8">Porque el bienestar emocional, también es una transformación</p>
           
           <div className="space-y-6">
             <div>

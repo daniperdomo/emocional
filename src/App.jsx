@@ -22,8 +22,8 @@ function App() {
     setLoading(true);
 
     try {
-      const prompt = `Eres un psicólogo experto llamado Emocion. El usuario se ha sentido así: "${userInput}". 
-      Responde de manera profesional y empática. Máximo 120 palabras.`;
+      const prompt = `Eres un psicólogo experto llamado GlowUp. El usuario se ha sentido así: "${userInput}". 
+      Responde de manera profesional y empática. Máximo 130 palabras.`;
 
       const result = await model.generateContent(prompt);
       const response = await result.response;
@@ -54,7 +54,7 @@ function App() {
     setUserInfo(userData); // Guardar la información del usuario
     const greetingMessage = {
       sender: 'bot',
-      text: `Hola ${userData.name}, ¿cómo te has sentido en estos días?`
+      text: `Hola ${userData.name}, ¿cómo te has sentido últimamente?`
     };
     setMessages(prev => [...prev, greetingMessage]);
   };
@@ -66,7 +66,7 @@ function App() {
       ) : (
         <div className="flex flex-col w-full max-w-5xl h-[90vh] bg-white rounded-lg shadow-lg overflow-hidden">
           <header className="flex items-center justify-between bg-purple-700 p-4 text-white">
-            <h1 className="text-2xl font-bold text-center flex-grow">EmocionApp</h1>
+            <h1 className="text-2xl font-bold text-center flex-grow">GlowUp</h1>
           </header>
           
           <main className="flex-grow overflow-y-auto p-8 bg-gray-100 flex flex-col gap-6">
