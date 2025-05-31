@@ -2,18 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease;
+}
 
 /* Scrollbar personalizada */
-.messages-container::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 8px;
 }
 
-.messages-container::-webkit-scrollbar-track {
-  background: var(--color-bg);
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
 }
 
-.messages-container::-webkit-scrollbar-thumb {
-  background-color: #adb5bd;
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
   border-radius: 4px;
 }
 
@@ -29,7 +38,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--color-text-light);
+  background-color: #94a3b8;
   animation: bounce 1.4s infinite ease-in-out;
 }
 
@@ -46,10 +55,18 @@
   40% { transform: scale(1); }
 }
 
-/* Mejoras específicas para iOS */
-@supports (-webkit-touch-callout: none) {
-  .options-container,
-  .messages-container {
-    overflow-y: scroll;
-  }
+/* Asegurar que el iframe de YouTube sea responsive */
+.aspect-w-16 {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.aspect-w-16 iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
